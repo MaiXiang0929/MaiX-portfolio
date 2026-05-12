@@ -1,65 +1,77 @@
-import Image from "next/image";
+import React from 'react';
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main className="min-h-screen bg-[#fcfcfc] text-[#111] px-6 py-20 md:px-24 md:py-32 font-sans selection:bg-black selection:text-white">
+      <div className="max-w-5xl mx-auto">
+        
+        {/* --- Hero Section --- */}
+        <section>
+          <h1 className="text-7xl md:text-9xl font-bold tracking-tighter leading-[0.8] mb-12">
+            MAI<span className="text-gray-300">X</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-20">
+            <p className="text-xl md:text-2xl leading-relaxed font-light text-gray-600">
+              Technical Artist <br />
+              专注实时渲染方案与 Shader 开发，致力于在性能约束下实现极致的视觉表现。
+            </p>
+            <div className="text-sm uppercase tracking-widest text-gray-400 self-end">
+              Focusing on URP/HDRP & Stylized Rendering <br />
+              Based on Unity & Blender — 2026
+            </div>
+          </div>
+        </section>
+
+        {/* --- Divider --- */}
+        <div className="h-[1px] w-full bg-gray-100 my-24" />
+
+        {/* --- TA Projects Grid --- */}
+        <section>
+          <h2 className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-12">Technical Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+            
+            {/* Project 1: Rendering/Shader */}
+            <div className="group cursor-pointer">
+              <div className="aspect-[16/10] bg-gray-100 overflow-hidden relative">
+                <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-xs tracking-widest opacity-100 group-hover:opacity-0 transition-opacity">
+                  RENDER_MODULE_01
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center text-black font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  查看 Shader 实现详情
+                </div>
+              </div>
+              <h3 className="mt-6 text-lg font-medium">Stylized Wuxia Rendering</h3>
+              <p className="text-gray-400 text-sm mt-1">HLSL / Unity URP / Ink-wash Style</p>
+            </div>
+
+            {/* Project 2: Tools/Pipeline */}
+            <div className="group cursor-pointer">
+              <div className="aspect-[16/10] bg-gray-100 overflow-hidden relative">
+                <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-xs tracking-widest opacity-100 group-hover:opacity-0 transition-opacity">
+                  PIPELINE_TOOL_02
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center text-black font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  查看自动化脚本
+                </div>
+              </div>
+              <h3 className="mt-6 text-lg font-medium">Blender Pipeline Automation</h3>
+              <p className="text-gray-400 text-sm mt-1">Python API / Asset Workflow</p>
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- Footer --- */}
+        <footer className="mt-48 pt-12 border-t border-gray-100 flex justify-between items-center text-xs text-gray-400 uppercase tracking-widest">
+          <div>© 2026 MaiX Portfolio</div>
+          <div className="space-x-6 lowercase">
+            <a href="#" className="hover:text-black transition-colors">maix@studio.xyz</a>
+            <a href="#" className="hover:text-black transition-colors">github</a>
+          </div>
+        </footer>
+
+      </div>
+    </main>
   );
 }
