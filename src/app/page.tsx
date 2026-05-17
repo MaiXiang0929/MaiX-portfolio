@@ -1,77 +1,64 @@
-import React from 'react';
+import WebGLBackground from "@/components/WebGLBackground";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#fcfcfc] text-[#111] px-6 py-20 md:px-24 md:py-32 font-sans selection:bg-black selection:text-white">
-      <div className="max-w-5xl mx-auto">
-        
-        {/* --- Hero Section --- */}
-        <section>
-          <h1 className="text-7xl md:text-9xl font-bold tracking-tighter leading-[0.8] mb-12">
-            MAI<span className="text-gray-300">X</span>
+    <div className="bg-[#0a0a0c] text-gray-100 antialiased selection:bg-[#00ffcc] selection:text-black overflow-x-hidden min-h-screen font-sans">
+      
+      {/* 载入 WebGL 背景 */}
+      <WebGLBackground />
+
+      {/* 导航栏 */}
+      <nav className="fixed top-0 left-0 w-full z-50 bg-[#0a0a0c]/80 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
+        <div className="font-mono font-bold text-sm tracking-wider text-[#00ffcc]">
+          TA
+        </div>
+        <div className="flex gap-8 text-sm font-mono">
+          <a href="#works" className="hover:text-[#00ffcc] transition-colors">// WORKS</a>
+          <a href="#skills" className="hover:text-[#00ffcc] transition-colors">// SKILLS</a>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="min-h-screen flex flex-col justify-center px-8 md:px-24 relative pt-16">
+        <div className="max-w-4xl space-y-6">
+          <h1 className="text-5xl md:text-8xl font-bold tracking-tight leading-none">
+            MAI <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">X</span>
           </h1>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-20">
-            <p className="text-xl md:text-2xl leading-relaxed font-light text-gray-600">
-              Technical Artist <br />
-              专注实时渲染方案与 Shader 开发，致力于在性能约束下实现极致的视觉表现。
-            </p>
-            <div className="text-sm uppercase tracking-widest text-gray-400 self-end">
-              Focusing on URP/HDRP & Stylized Rendering <br />
-              Based on Unity & Blender — 2026
-            </div>
+          <p className="text-gray-400 text-lg md:text-xl max-w-2xl font-light">
+            桥接美术表现与程序底层的架构者。精通引擎渲染管线定制、高级 Shader 开发及美术工具链自动化。
+          </p>
+        </div>
+      </section>
+
+      {/* Works Section */}
+      <section id="works" className="py-24 px-8 md:px-24 bg-[#0e0e12]/60 border-y border-white/5">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <h2 className="text-xs font-mono text-[#00ffcc] tracking-widest uppercase mb-2">// SELECTED PROJECTS</h2>
+            <p className="text-3xl font-bold">技术美术实践作品</p>
           </div>
-        </section>
 
-        {/* --- Divider --- */}
-        <div className="h-[1px] w-full bg-gray-100 my-24" />
-
-        {/* --- TA Projects Grid --- */}
-        <section>
-          <h2 className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-12">Technical Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-            
-            {/* Project 1: Rendering/Shader */}
-            <div className="group cursor-pointer">
-              <div className="aspect-[16/10] bg-gray-100 overflow-hidden relative">
-                <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-xs tracking-widest opacity-100 group-hover:opacity-0 transition-opacity">
-                  RENDER_MODULE_01
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* 作品卡片 1 */}
+            <div className="group space-y-4">
+              <div className="relative aspect-video w-full bg-neutral-900 border border-white/10 overflow-hidden rounded-lg cursor-crosshair">
+                <div className="absolute inset-0 bg-gradient-to-tr from-purple-900 to-slate-800 flex items-center justify-center transition-opacity duration-500 group-hover:opacity-20">
+                  <span className="text-sm font-mono">[ 最终渲染态 ]</span>
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center text-black font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  查看 Shader 实现详情
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:20px_20px] flex flex-col justify-between p-4">
+                  <span className="font-mono text-[10px] text-[#00ffcc] bg-black/60 px-2 py-1 rounded self-start">PASS: WIREFRAME_OVERLAY</span>
+                  <div className="font-mono text-[10px] text-gray-500 space-y-1 bg-black/40 p-2 rounded">
+                    <p>Verts: 24,521</p>
+                    <p>Tris: 42,104</p>
+                  </div>
                 </div>
               </div>
-              <h3 className="mt-6 text-lg font-medium">Stylized Wuxia Rendering</h3>
-              <p className="text-gray-400 text-sm mt-1">HLSL / Unity URP / Ink-wash Style</p>
+              <h3 className="text-xl font-bold group-hover:text-[#00ffcc] transition-colors">次世代移动端写实毛发着色器</h3>
             </div>
-
-            {/* Project 2: Tools/Pipeline */}
-            <div className="group cursor-pointer">
-              <div className="aspect-[16/10] bg-gray-100 overflow-hidden relative">
-                <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-xs tracking-widest opacity-100 group-hover:opacity-0 transition-opacity">
-                  PIPELINE_TOOL_02
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center text-black font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  查看自动化脚本
-                </div>
-              </div>
-              <h3 className="mt-6 text-lg font-medium">Blender Pipeline Automation</h3>
-              <p className="text-gray-400 text-sm mt-1">Python API / Asset Workflow</p>
-            </div>
-
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* --- Footer --- */}
-        <footer className="mt-48 pt-12 border-t border-gray-100 flex justify-between items-center text-xs text-gray-400 uppercase tracking-widest">
-          <div>© 2026 MaiX Portfolio</div>
-          <div className="space-x-6 lowercase">
-            <a href="#" className="hover:text-black transition-colors">maix@studio.xyz</a>
-            <a href="#" className="hover:text-black transition-colors">github</a>
-          </div>
-        </footer>
-
-      </div>
-    </main>
+    </div>
   );
 }
