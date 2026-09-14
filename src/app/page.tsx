@@ -1,4 +1,5 @@
 import WebGLBackground from "@/components/WebGLBackground";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -13,8 +14,9 @@ export default function Home() {
           TA
         </div>
         <div className="flex gap-8 text-sm font-mono">
-          <a href="#works" className="hover:text-[#00ffcc] transition-colors">// WORKS</a>
-          <a href="#skills" className="hover:text-[#00ffcc] transition-colors">// SKILLS</a>
+          <a href="#works" className="hover:text-[#00ffcc] transition-colors">{"// WORKS"}</a>
+          <a href="#skills" className="hover:text-[#00ffcc] transition-colors">{"// SKILLS"}</a>
+          <Link href="/resume" className="hover:text-[#00ffcc] transition-colors">{"// RESUME"}</Link>
         </div>
       </nav>
 
@@ -34,7 +36,7 @@ export default function Home() {
       <section id="works" className="py-24 px-8 md:px-24 bg-[#0e0e12]/60 border-y border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
-            <h2 className="text-xs font-mono text-[#00ffcc] tracking-widest uppercase mb-2">// SELECTED PROJECTS</h2>
+            <h2 className="text-xs font-mono text-[#00ffcc] tracking-widest uppercase mb-2">{"// SELECTED PROJECTS"}</h2>
             <p className="text-3xl font-bold">技术美术实践作品</p>
           </div>
 

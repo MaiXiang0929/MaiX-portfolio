@@ -30,8 +30,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <VpnTip />  // 在全局布局中引入VpnTip组件
-        <Analytics /> // 添加 Vercel Analytics 组件 
+        {/* 全局网络提示与访问统计。 */}
+        <VpnTip />
+        <Analytics />
 
         {children}
       </body>
