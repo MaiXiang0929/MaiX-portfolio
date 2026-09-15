@@ -121,7 +121,7 @@ export default function ResumePage() {
               width={231}
               height={308}
               priority
-              className="h-44 w-32 border border-white/15 object-cover grayscale transition duration-500 hover:grayscale-0 sm:h-52 sm:w-39"
+              className="h-44 w-32 border border-white/15 object-cover sm:h-52 sm:w-39"
             />
           </div>
         </header>
