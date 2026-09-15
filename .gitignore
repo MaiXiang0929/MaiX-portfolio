@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/.pnpm-store/
 /.pnp
 .pnp.*
 .yarn/*
@@ -22,7 +23,12 @@
 
 # misc
 .DS_Store
+.vs/
 *.pem
+
+# This project uses npm and package-lock.json.
+/pnpm-lock.yaml
+/pnpm-workspace.yaml
 
 # debug
 npm-debug.log*
