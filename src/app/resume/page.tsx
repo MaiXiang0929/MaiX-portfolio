@@ -6,16 +6,71 @@ import "./print.css";
 
 export const metadata: Metadata = {
   title: "陶振辉 | 技术美术简历",
-  description: "陶振辉的 Technical Artist 在线简历，关注实时渲染、Shader、NPR 与美术工具开发。",
+  description: "陶振辉的 Technical Artist 在线简历，关注实时渲染、Shader。",
 };
 
+type HighlightKind = "tech" | "result";
+
+type ProjectPoint = {
+  text: string;
+  highlights: Array<{
+    keyword: string;
+    kind?: HighlightKind;
+  }>;
+};
+
+type ResumeProject = {
+  title: string;
+  period: string;
+  stack: string;
+  points: ProjectPoint[];
+};
+
+// 转义 C++ 等关键词中的正则特殊字符，避免匹配时产生歧义。
+const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+function HighlightedText({ text, highlights }: ProjectPoint) {
+  const uniqueHighlights = Array.from(
+    new Map(highlights.map((highlight) => [highlight.keyword, highlight])).values(),
+  ).sort((a, b) => b.keyword.length - a.keyword.length);
+
+  if (uniqueHighlights.length === 0) return <span>{text}</span>;
+
+  const highlightMap = new Map(uniqueHighlights.map((highlight) => [highlight.keyword, highlight]));
+  const pattern = new RegExp(`(${uniqueHighlights.map(({ keyword }) => escapeRegExp(keyword)).join("|")})`, "g");
+
+  return (
+    <span>
+      {text.split(pattern).map((part, partIndex) => {
+        const highlight = highlightMap.get(part);
+
+        if (!highlight) return <span key={`${part}-${partIndex}`}>{part}</span>;
+
+        return (
+          <strong
+            key={`${part}-${partIndex}`}
+            className={highlight.kind === "result" ? "resume-highlight-result" : "resume-highlight-tech"}
+          >
+            {part}
+          </strong>
+        );
+      })}
+    </span>
+  );
+}
+
 // 简历内容集中在这里维护：修改文字或新增条目时，不需要调整下方页面结构。
+// 技能板块
 const skillGroups = [
   {
     title: "引擎 / DCC",
     items: [
-      "UE5","Unity","Blender",
-      "3ds Max","Houdini","Substance Designer",
+      "UE5",
+      "Unity",
+      "Blender",
+      "3ds Max",
+      "Houdini",
+      "Substance Designer",
       "RenderDoc",
     ],
   },
@@ -41,50 +96,113 @@ const skillGroups = [
     ],
   },
   {
-  title: "AI",
-  items: [
-    "AI 协作开发",
-    "UE5 MCP",
-    "AI 图像生成",
-    "Stable Diffusion",
-  ],
-  },
-];
-
-const projects = [
-  {
-    title: "UE5 二次元角色 NPR 渲染 Demo",
-    period: "2026.09 - 至今",
-    status: "进行中",
-    stack: "Unreal Engine 5 · Material Editor · HLSL · Blender",
-    points: [
-      "以二次元角色模型为对象搭建实时渲染 Demo，围绕二游角色的卡通光照与面部阴影表现进行实现与拆解。",
-      "采用 Material 节点与 HLSL 双路径研究 Physically Based Cel Shading 与 Anime Face Shadow，便于对照验证与后续模块化。",
-      "正在完成模型导入前处理、材质与贴图接入及渲染效果迭代，目标沉淀为可展示的 UE5 角色渲染作品。",
-    ],
-  },
-  {
-    title: "OpenGL 实时渲染项目",
-    period: "个人项目",
-    stack: "C++ · OpenGL 3.3 · GLSL · GLFW / GLAD · CMake",
-    points: [
-      "在 Windows 平台搭建 OpenGL 3.3 图形项目，使用 CMake 管理工程结构与第三方依赖。",
-      "围绕 Application、Renderer、LightGizmo 等模块组织代码，实践实时渲染循环、渲染模块拆分与调试流程。",
-      "结合 GLSL Shader 进行图形学实践，并将底层渲染知识迁移到 UE Shader / Rendering 学习中。",
-    ],
-  },
-  {
-    title: "Insomnia · UE5 团队游戏项目",
-    period: "项目开发",
-    stack: "Unreal Engine 5 · Blueprint · Post Process · Git",
-    points: [
-      "参与医院场景游戏项目开发，使用 Blueprint 完成或调整门交互逻辑与相关 Gameplay 功能。",
-      "参与毒圈 Post Process 视觉效果，以及角色 Camera、UI 等模块的修改与联调。",
-      "使用 Git 进行多人协作，在个人分支 MaiX 完成功能提交并合并至 main。",
+    title: "AI",
+    items: [
+      "AI 协作开发",
+      "UE5 MCP",
+      "AI 图像生成",
     ],
   },
 ];
 
+// 项目板块
+const projects: ResumeProject[] = [
+  {
+    title: "MaiX Renderer · OpenGL 实时渲染框架",
+    period: "2026.08 - 至今",
+    stack: "C++17 · OpenGL 4.0 · GLSL · Dear ImGui · CMake",
+    points: [
+      {
+        text: "基于 C++17 与 OpenGL 4.0 搭建实时渲染框架，采用 Scene Proxy、RenderView 与多 Pass 管线组织场景提交、GPU 资源管理和渲染流程。",
+        highlights: [
+          { keyword: "OpenGL 4.0" },
+          { keyword: "多 Pass 管线", kind: "result" },
+        ],
+      },
+      {
+        text: "实现 Cook-Torrance PBR、Toon Shading、面部阴影、外扩描边、透明混合与实时阴影，并加入 HDR、Bloom、SSAO 和 ACES Tone Mapping。",
+        highlights: [
+          { keyword: "PBR" },
+          { keyword: "Toon Shading" },
+          { keyword: "HDR、Bloom、SSAO", kind: "result" },
+        ],
+      },
+      {
+        text: "基于 Dear ImGui 开发场景层级、材质编辑与属性面板，支持 FBX 模型导入、视口拾取、Transform Gizmo、Shader 热重载及 GPU 性能统计。",
+        highlights: [
+          { keyword: "Dear ImGui" },
+          { keyword: "FBX 模型导入" },
+          { keyword: "Shader 热重载及 GPU 性能统计", kind: "result" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Insomnia · PSX 风格微恐解谜游戏",
+    period: "2026.07 - 2026.08",
+    stack: "Unreal Engine 5 · C++ · Blueprint · Post Process · UE5 MCP · Git",
+    points: [
+      {
+        text: "使用 C++ 完善医院场景门交互系统，实现单向门与双向门模式、角色所在侧判断及开关门状态控制，并调整相机高度与交互检测范围。",
+        highlights: [
+          { keyword: "C++" },
+          { keyword: "单向门与双向门" },
+          { keyword: "开关门状态控制", kind: "result" },
+        ],
+      },
+      {
+        text: "使用 Blueprint 与 Post Process Material 实现毒圈及圈内外视觉表现，结合场景深度与视口 UV 重建世界坐标和视线方向，解决不同相机视角下的显示异常。",
+        highlights: [
+          { keyword: "Post Process Material" },
+          { keyword: "重建世界坐标和视线方向" },
+          { keyword: "解决不同相机视角下的显示异常", kind: "result" },
+        ],
+      },
+      {
+        text: "实现基于 1-Bit Dithering 的 PSX 风格化后处理，并将抖动效果接入毒圈视觉表现；使用 UE5 MCP 辅助材质与场景参数调整，提高效果验证和迭代效率。",
+        highlights: [
+          { keyword: "1-Bit Dithering" },
+          { keyword: "PSX 风格化后处理" },
+          { keyword: "UE5 MCP" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Unity URP 二次元角色 NPR 渲染",
+    period: "2026.07",
+    stack: "Unity 2022.3 · URP · HLSL / ShaderLab · C#",
+    points: [
+      {
+        text: "基于 Unity URP 编写角色身体与面部 Shader，围绕二次元角色的分层光照、材质区分和面部阴影实现风格化实时渲染。",
+        highlights: [
+          { keyword: "Unity URP" },
+          { keyword: "Shader" },
+          { keyword: "风格化实时渲染", kind: "result" },
+        ],
+      },
+      {
+        text: "结合 BaseMap、LightMap 与 Ramp Texture 实现多材质区域色阶阴影，并加入卡通高光、金属高光、边缘光、外扩描边及多光源支持。",
+        highlights: [
+          { keyword: "BaseMap" },
+          { keyword: "LightMap" },
+          { keyword: "Ramp Texture" },
+          { keyword: "多光源支持", kind: "result" },
+        ],
+      },
+      {
+        text: "基于 SDF 贴图与头部朝向计算动态面部阴影，通过 C# 实时向材质传递头部方向向量，使阴影能够随角色朝向和光源方向变化。",
+        highlights: [
+          { keyword: "SDF" },
+          { keyword: "C#" },
+          { keyword: "动态面部阴影", kind: "result" },
+        ],
+      },
+    ],
+  },
+];
+
+// 经历板块
 const experiences = [
   {
     title: "腾讯光子 OpenLight 创造营 · 第 3 赛季技术美术方向",
@@ -92,14 +210,14 @@ const experiences = [
     description: "报名并成功入选腾讯光子 OpenLight 创造营第 3 赛季-技术美术方向，参与技术美术的线上课程学习。",
   },
   {
-    title: "“萌芽”社联 GameJam",
+    title: "“萌芽”社联 GameJam · UI / 技术美术",
     period: "2026.02",
-    description: "负责 UI 动效与卡通渲染 Shader 相关工作，在短周期协作开发中完成视觉表现任务。",
+    description: "负责 UI 动效与卡通渲染 Shader 的制作与调试，在短周期团队协作中完成相关视觉效果的开发与迭代。",
   },
   {
-    title: "米哈游策划大赛",
+    title: "米哈游策划大赛 · 场景搭建",
     period: "2025.11",
-    description: "参与二次元风格场景搭建，积累风格化场景表现与游戏视觉协作经验。",
+    description: "参与二次元风格场景搭建，完成场景视觉表现与风格化效果调整，并配合团队推进整体场景呈现。",
   },
 ];
 
@@ -208,7 +326,7 @@ export default function ResumePage() {
             >
               <span className="font-mono text-xs text-[#00ffcc]">GITHUB ↗</span>
               <strong className="mt-2 block text-white group-hover:text-[#00ffcc]">MaiXiang0929</strong>
-              <span className="mt-1 block text-sm text-white/50">项目代码与作品集</span>
+              <span className="mt-1 block text-sm text-white/50">项目代码</span>
             </a>
           </aside>
 
@@ -228,7 +346,10 @@ export default function ResumePage() {
                     <p className="mt-3 font-mono text-xs font-semibold text-[#69aee7]">{project.stack}</p>
                     <ul className="mt-5 space-y-2 text-sm leading-7 text-white/60">
                       {project.points.map((point) => (
-                        <li key={point} className="flex gap-3"><span className="text-[#00ffcc]">›</span><span>{point}</span></li>
+                        <li key={point.text} className="flex gap-3">
+                          <span className="text-[#00ffcc]">›</span>
+                          <HighlightedText text={point.text} highlights={point.highlights} />
+                        </li>
                       ))}
                     </ul>
                   </article>
@@ -237,7 +358,7 @@ export default function ResumePage() {
             </section>
 
             <section>
-              <SectionTitle index="05">专业经历 / 比赛</SectionTitle>
+              <SectionTitle index="05">实践经历</SectionTitle>
               <div className="resume-experiences relative space-y-8 border-l border-white/15 pl-6">
                 {experiences.map((experience) => (
                   <article key={experience.title} className="relative">
@@ -250,14 +371,6 @@ export default function ResumePage() {
                   </article>
                 ))}
               </div>
-            </section>
-
-            <section className="resume-foundation border border-white/10 bg-gradient-to-br from-[#102026] to-[#0d1015] p-7 sm:p-9">
-              <p className="font-mono text-xs tracking-widest text-[#00ffcc]">06 / FOUNDATION</p>
-              <h2 className="mt-3 text-2xl font-bold text-white">图形学基础</h2>
-              <p className="mt-4 max-w-2xl leading-8 text-white/60">
-                持续学习计算机图形学、Interactive Graphics、实时渲染与 Shader 编程；结合 OpenGL 与 UE5 项目进行实践。
-              </p>
             </section>
           </div>
         </div>
