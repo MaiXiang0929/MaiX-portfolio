@@ -60,11 +60,14 @@
 
   /* 优先压缩空白而不是正文，让全部内容真实落入一张 A4。 */
   .resume-sidebar {
-    padding: 18mm 4.5mm 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    padding: 10mm 4.5mm 7mm !important;
   }
 
   .resume-sidebar > * + * {
-    margin-block-start: 3.5mm !important;
+    margin-block-start: 6mm !important;
   }
 
   .resume-header img {
@@ -91,32 +94,35 @@
   .resume-contact,
   .resume-skills,
   .resume-education {
-    margin-top: 2mm !important;
+    margin-top: 2.5mm !important;
   }
 
   .resume-contact > * + *,
   .resume-skills > * + *,
   .resume-education > * + * {
-    margin-block-start: 1.3mm !important;
+    margin-block-start: 1.7mm !important;
   }
 
   .resume-contact,
   .resume-skills p,
   .resume-education {
     font-size: 7.5pt !important;
-    line-height: 1.35 !important;
+    line-height: 1.45 !important;
   }
 
   .resume-main {
-    padding: 18mm 6mm 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    padding: 10mm 6mm 7mm !important;
   }
 
   .resume-main > * + * {
-    margin-block-start: 3.5mm !important;
+    margin-block-start: 6mm !important;
   }
 
   .resume-summary {
-    padding-bottom: 3mm !important;
+    padding-bottom: 3.5mm !important;
   }
 
   .resume-summary h2 {
@@ -128,11 +134,11 @@
   .resume-summary p:last-child {
     margin-top: 2mm !important;
     font-size: 8.5pt !important;
-    line-height: 1.45 !important;
+    line-height: 1.55 !important;
   }
 
   .resume-section-title {
-    margin-bottom: 2mm !important;
+    margin-bottom: 2.5mm !important;
     gap: 2mm !important;
   }
 
@@ -142,8 +148,8 @@
   }
 
   .resume-project {
-    padding-top: 2mm !important;
-    padding-bottom: 2mm !important;
+    padding-top: 2.8mm !important;
+    padding-bottom: 2.8mm !important;
     padding-left: 3mm !important;
   }
 
@@ -158,12 +164,12 @@
 
   .resume-project > p,
   .resume-project ul {
-    margin-top: 1.2mm !important;
+    margin-top: 1.4mm !important;
   }
 
   .resume-project ul {
     font-size: 7.8pt !important;
-    line-height: 1.35 !important;
+    line-height: 1.45 !important;
   }
 
   .resume-project li {
@@ -171,7 +177,7 @@
   }
 
   .resume-project li + li {
-    margin-top: 0.5mm !important;
+    margin-top: 0.8mm !important;
   }
 
   .resume-experiences {
@@ -179,7 +185,7 @@
   }
 
   .resume-experiences > * + * {
-    margin-block-start: 2mm !important;
+    margin-block-start: 3mm !important;
   }
 
   .resume-experiences article > div {
@@ -187,9 +193,9 @@
   }
 
   .resume-experiences article p {
-    margin-top: 1mm !important;
+    margin-top: 1.2mm !important;
     font-size: 8pt !important;
-    line-height: 1.35 !important;
+    line-height: 1.45 !important;
   }
 
   .resume-print article,
