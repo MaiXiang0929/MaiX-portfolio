@@ -97,9 +97,9 @@ const skillGroups = [
   {
     title: "AI",
     items: [
-      "AI 协作开发",
+      "Vibe Coding（Codex）",
       "UE5 MCP",
-      "AI 图像生成",
+      "AIGC（GPT Image / Nano Banana）",
     ],
   },
 ];
