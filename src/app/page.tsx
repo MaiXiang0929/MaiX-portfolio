@@ -1,66 +1,97 @@
-import WebGLBackground from "@/components/WebGLBackground";
+import type { Metadata } from "next";
 import Link from "next/link";
+import PortfolioHeader from "@/components/PortfolioHeader";
+import ProjectVisual from "@/components/ProjectVisual";
+import { projects } from "@/data/projects";
+
+export const metadata: Metadata = {
+  title: "陶振辉 | Technical Artist Portfolio",
+  description: "陶振辉的技术美术作品集，关注实时渲染、Shader、NPR 与工具开发。",
+};
 
 export default function Home() {
   return (
-    <div className="bg-[#0a0a0c] text-gray-100 antialiased selection:bg-[#00ffcc] selection:text-black overflow-x-hidden min-h-screen font-sans">
-      
-      {/* 载入 WebGL 背景 */}
-      <WebGLBackground />
+    <main className="portfolio-page">
+      <PortfolioHeader />
 
-      {/* 导航栏 */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-[#0a0a0c]/80 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
-        <div className="font-mono font-bold text-sm tracking-wider text-[#00ffcc]">
-          TA
+      <section id="about" className="portfolio-hero">
+        <div className="portfolio-hero__meta" aria-hidden="true">
+          <span>PORTFOLIO / 2026</span>
+          <span>NANJING, CN</span>
         </div>
-        <div className="flex gap-8 text-sm font-mono">
-          <a href="#works" className="hover:text-[#00ffcc] transition-colors">{"// WORKS"}</a>
-          <a href="#skills" className="hover:text-[#00ffcc] transition-colors">{"// SKILLS"}</a>
-          <Link href="/resume" className="hover:text-[#00ffcc] transition-colors">{"// RESUME"}</Link>
+        <div className="portfolio-hero__content">
+          <p className="eyebrow"><span className="status-dot" />AVAILABLE FOR OPPORTUNITIES</p>
+          <h1>Bridging <em>art</em><br />and technology.</h1>
+          <div className="portfolio-hero__footer">
+            <p>
+              我是陶振辉，一名专注实时渲染、风格化 Shader
+              与图形工具开发的技术美术。我把视觉目标拆解为可靠、可复用的技术方案。
+            </p>
+            <a href="#work" className="round-link" aria-label="查看项目"><span>↓</span></a>
+          </div>
         </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center px-8 md:px-24 relative pt-16">
-        <div className="max-w-4xl space-y-6">
-          <h1 className="text-5xl md:text-8xl font-bold tracking-tight leading-none">
-            MAI <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">X</span>
-          </h1>
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl font-light">
-            桥接美术表现与程序底层的架构者。精通引擎渲染管线定制、高级 Shader 开发及美术工具链自动化。
-          </p>
-        </div>
+        <span className="portfolio-hero__mark" aria-hidden="true">TA</span>
       </section>
 
-      {/* Works Section */}
-      <section id="works" className="py-24 px-8 md:px-24 bg-[#0e0e12]/60 border-y border-white/5">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-16">
-            <h2 className="text-xs font-mono text-[#00ffcc] tracking-widest uppercase mb-2">{"// SELECTED PROJECTS"}</h2>
-            <p className="text-3xl font-bold">技术美术实践作品</p>
-          </div>
+      <section id="work" className="work-section">
+        <div className="section-intro">
+          <p className="eyebrow">SELECTED WORK / 精选项目</p>
+          <h2>从底层渲染到最终画面</h2>
+          <p>每个项目都围绕一个具体问题展开：理解它、拆解它，并把答案做成可以运行的系统。</p>
+        </div>
 
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* 作品卡片 1 */}
-            <div className="group space-y-4">
-              <div className="relative aspect-video w-full bg-neutral-900 border border-white/10 overflow-hidden rounded-lg cursor-crosshair">
-                <div className="absolute inset-0 bg-gradient-to-tr from-purple-900 to-slate-800 flex items-center justify-center transition-opacity duration-500 group-hover:opacity-20">
-                  <span className="text-sm font-mono">[ 最终渲染态 ]</span>
+        <div className="category-strip" aria-label="项目方向">
+          {Array.from(new Set(projects.map((project) => project.category))).map((category, index) => (
+            <span key={category}><b>0{index + 1}</b>{category}</span>
+          ))}
+        </div>
+
+        <div className="project-list">
+          {projects.map((project) => (
+            <article className="project-card" key={project.slug}>
+              <Link href={`/projects/${project.slug}`} className="project-card__visual" aria-label={`查看 ${project.title}`}>
+                <ProjectVisual project={project} compact />
+                <span className="project-card__open">OPEN <i>↗</i></span>
+              </Link>
+              <div className="project-card__copy">
+                <div>
+                  <p className="project-card__category">{project.index} / {project.category}</p>
+                  <h3><Link href={`/projects/${project.slug}`}>{project.title}</Link></h3>
+                  <p className="project-card__subtitle">{project.shortTitle}</p>
                 </div>
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:20px_20px] flex flex-col justify-between p-4">
-                  <span className="font-mono text-[10px] text-[#00ffcc] bg-black/60 px-2 py-1 rounded self-start">PASS: WIREFRAME_OVERLAY</span>
-                  <div className="font-mono text-[10px] text-gray-500 space-y-1 bg-black/40 p-2 rounded">
-                    <p>Verts: 24,521</p>
-                    <p>Tris: 42,104</p>
+                <div className="project-card__description">
+                  <p>{project.description}</p>
+                  <div className="tag-list">
+                    {project.stack.slice(0, 4).map((tag) => <span key={tag}>{tag}</span>)}
                   </div>
                 </div>
+                <span className="project-card__year">{project.year}</span>
               </div>
-              <h3 className="text-xl font-bold group-hover:text-[#00ffcc] transition-colors">次世代移动端写实毛发着色器</h3>
-            </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="about-section">
+        <p className="eyebrow">ABOUT / 关于我</p>
+        <div className="about-section__grid">
+          <h2>技术为画面服务，<br />工具为创作提速。</h2>
+          <div>
+            <p>光学工程硕士在读，关注实时渲染、NPR、PBR 与美术工具开发，具备 Unity、Unreal Engine 和 OpenGL 项目实践经验。</p>
+            <p>我喜欢在美术需求与工程约束之间工作：先理解视觉目标，再寻找准确、清晰、可迭代的实现路径。</p>
+            <Link href="/resume" className="text-link">查看完整简历 <span>↗</span></Link>
           </div>
         </div>
       </section>
 
-    </div>
+      <footer className="portfolio-footer">
+        <div>
+          <p className="eyebrow">LET&apos;S WORK TOGETHER</p>
+          <h2>Have an idea?<br /><em>Let&apos;s make it real.</em></h2>
+        </div>
+        <a href="mailto:2679664405@qq.com" className="footer-email">2679664405@qq.com ↗</a>
+        <p className="portfolio-footer__copyright">© 2026 TAO ZHENHUI · DESIGNED &amp; BUILT WITH CARE</p>
+      </footer>
+    </main>
   );
 }

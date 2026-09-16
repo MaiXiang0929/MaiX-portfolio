@@ -15,8 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MaiX's Portfolio", 
-  description: "Technical Artist Portfolio - Focusing on Rendering & Pipeline", // 建议同步更新描述
+  title: {
+    default: "陶振辉 | Technical Artist",
+    template: "%s",
+  },
+  description: "陶振辉的技术美术作品集，关注实时渲染、Shader、NPR 与工具开发。",
 };
 
 export default function RootLayout({
@@ -26,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="zh-CN"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
