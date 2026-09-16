@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PortfolioHeader from "@/components/PortfolioHeader";
-import ProjectVisual from "@/components/ProjectVisual";
 import { getProject, projects } from "@/data/projects";
 
 type ProjectPageProps = { params: Promise<{ slug: string }> };
@@ -27,62 +26,66 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   if (!project) notFound();
 
   const projectIndex = projects.findIndex((item) => item.slug === project.slug);
-  const nextProject = projects[(projectIndex + 1) % projects.length];
+  const previousProject = projectIndex > 0 ? projects[projectIndex - 1] : undefined;
+  const nextProject = projectIndex < projects.length - 1 ? projects[projectIndex + 1] : undefined;
 
   return (
-    <main className="portfolio-page project-page">
+    <main className="portfolio-page detail-page">
       <PortfolioHeader detail />
 
-      <section className="project-hero">
-        <div className="project-hero__heading">
-          <p className="eyebrow">{project.index} / {project.category} / {project.year}</p>
+      <article className="content-width simple-detail">
+        <header className="simple-detail__header">
+          <p className="section-label">{project.category} · {project.year}</p>
           <h1>{project.title}</h1>
-          <p className="project-hero__subtitle">{project.shortTitle}</p>
+          <p className="simple-detail__subtitle">{project.shortTitle}</p>
+          <p className="simple-detail__summary">{project.intro}</p>
+        </header>
+
+        <div className="detail-placeholder">
+          <span>{project.category}</span>
+          <strong>{project.title}</strong>
+          <small>项目主图或演示视频待补充</small>
         </div>
-        <ProjectVisual project={project} />
-        <div className="project-hero__intro">
-          <p>{project.intro}</p>
-          <dl>
-            <div><dt>ROLE</dt><dd>{project.role}</dd></div>
-            <div><dt>TIME</dt><dd>{project.duration}</dd></div>
-            <div><dt>STACK</dt><dd>{project.stack.join(" · ")}</dd></div>
-          </dl>
+
+        <dl className="project-facts">
+          <div><dt>项目时间</dt><dd>{project.duration}</dd></div>
+          <div><dt>个人职责</dt><dd>{project.role}</dd></div>
+          <div><dt>技术栈</dt><dd>{project.stack.join("、")}</dd></div>
+          <div><dt>当前状态</dt><dd>{project.slug === "maix-renderer" ? "持续开发中" : "阶段性完成"}</dd></div>
+        </dl>
+
+        <section className="detail-overview">
+          <p className="section-label">PROJECT OVERVIEW</p>
+          <h2>项目概述</h2>
+          <p>{project.description}</p>
+        </section>
+
+        <div className="simple-case-study">
+          {project.sections.map((section) => (
+            <section key={section.eyebrow}>
+              <div>
+                <p className="section-label">{section.eyebrow}</p>
+                <h2>{section.title}</h2>
+              </div>
+              <div>
+                <p>{section.body}</p>
+                <ul>
+                  {section.points.map((point) => <li key={point}>{point}</li>)}
+                </ul>
+              </div>
+            </section>
+          ))}
         </div>
-      </section>
 
-      <section className="project-metrics">
-        {project.highlights.map((highlight) => (
-          <div key={highlight.label}>
-            <strong>{highlight.value}</strong>
-            <span>{highlight.label}</span>
-          </div>
-        ))}
-      </section>
-
-      <section className="case-study">
-        {project.sections.map((section, index) => (
-          <article className="case-study__section" key={section.eyebrow}>
-            <div className="case-study__title">
-              <p className="eyebrow">{section.eyebrow}</p>
-              <h2>{section.title}</h2>
-            </div>
-            <div className="case-study__body">
-              <p>{section.body}</p>
-              <ul>
-                {section.points.map((point) => <li key={point}><span>0{index + 1}</span>{point}</li>)}
-              </ul>
-            </div>
-          </article>
-        ))}
-      </section>
-
-      <section className="next-project">
-        <p className="eyebrow">NEXT PROJECT / 下一个项目</p>
-        <Link href={`/projects/${nextProject.slug}`}>
-          <span>{nextProject.title}</span><i>↗</i>
-        </Link>
-        <p>{nextProject.shortTitle}</p>
-      </section>
+        <nav className="project-pagination" aria-label="项目翻页">
+          {previousProject ? (
+            <Link href={`/projects/${previousProject.slug}`}>← 上一个项目：{previousProject.title}</Link>
+          ) : <span />}
+          {nextProject ? (
+            <Link href={`/projects/${nextProject.slug}`}>下一个项目：{nextProject.title} →</Link>
+          ) : <Link href="/#projects">返回全部项目 →</Link>}
+        </nav>
+      </article>
     </main>
   );
 }

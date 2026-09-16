@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PortfolioHeader from "@/components/PortfolioHeader";
-import ProjectVisual from "@/components/ProjectVisual";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
-  title: "陶振辉 | Technical Artist Portfolio",
-  description: "陶振辉的技术美术作品集，关注实时渲染、Shader、NPR 与工具开发。",
+  title: "陶振辉 | 技术美术作品集",
+  description: "陶振辉的技术美术作品集，包含实时渲染、Shader、NPR 与 UE5 项目实践。",
 };
 
 export default function Home() {
@@ -14,76 +13,87 @@ export default function Home() {
     <main className="portfolio-page">
       <PortfolioHeader />
 
-      <section className="portfolio-hero">
-        <div className="portfolio-hero__meta" aria-hidden="true">
-          <span>PORTFOLIO / 2026</span>
-          <span>NANJING, CN</span>
-        </div>
-        <div className="portfolio-hero__content">
-          <p className="eyebrow"><span className="status-dot" />AVAILABLE FOR OPPORTUNITIES</p>
-          <h1>Bridging <em>art</em><br />and technology.</h1>
-          <div className="portfolio-hero__footer">
-            <p>
-              我是陶振辉，一名专注实时渲染、风格化 Shader
-              与图形工具开发的技术美术。我把视觉目标拆解为可靠、可复用的技术方案。
-            </p>
-            <a href="#work" className="round-link" aria-label="查看项目"><span>↓</span></a>
-          </div>
-        </div>
-        <span className="portfolio-hero__mark" aria-hidden="true">TA</span>
-      </section>
-
-      <section id="work" className="work-section">
-        <div className="section-intro">
-          <p className="eyebrow">SELECTED WORK / 精选项目</p>
-          <h2>从底层渲染到最终画面</h2>
-          <p>每个项目都围绕一个具体问题展开：理解它、拆解它，并把答案做成可以运行的系统。</p>
-        </div>
-
-        <div className="category-strip" aria-label="项目方向">
-          {Array.from(new Set(projects.map((project) => project.category))).map((category, index) => (
-            <span key={category}><b>0{index + 1}</b>{category}</span>
-          ))}
-        </div>
-
-        <div className="project-list">
-          {projects.map((project) => (
-            <article className="project-card" key={project.slug}>
-              <Link href={`/projects/${project.slug}`} className="project-card__visual" aria-label={`查看 ${project.title}`}>
-                <ProjectVisual project={project} compact />
-                <span className="project-card__open">OPEN <i>↗</i></span>
-              </Link>
-              <div className="project-card__copy">
-                <div>
-                  <p className="project-card__category">{project.index} / {project.category}</p>
-                  <h3><Link href={`/projects/${project.slug}`}>{project.title}</Link></h3>
-                  <p className="project-card__subtitle">{project.shortTitle}</p>
-                </div>
-                <div className="project-card__description">
-                  <p>{project.description}</p>
-                  <div className="tag-list">
-                    {project.stack.slice(0, 4).map((tag) => <span key={tag}>{tag}</span>)}
-                  </div>
-                </div>
-                <span className="project-card__year">{project.year}</span>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="about" className="about-section">
-        <p className="eyebrow">ABOUT ME / 关于我</p>
-        <div className="about-section__grid">
-          <h2>技术为画面服务，<br />工具为创作提速。</h2>
+      <section className="simple-hero">
+        <div className="content-width simple-hero__grid">
           <div>
-            <p>光学工程硕士在读，关注实时渲染、NPR、PBR 与美术工具开发，具备 Unity、Unreal Engine 和 OpenGL 项目实践经验。</p>
-            <p>我喜欢在美术需求与工程约束之间工作：先理解视觉目标，再寻找准确、清晰、可迭代的实现路径。</p>
-            <Link href="/resume" className="text-link">查看完整简历 <span>↗</span></Link>
+            <p className="section-label">TECHNICAL ARTIST PORTFOLIO</p>
+            <h1>陶振辉</h1>
+            <p className="simple-hero__role">Technical Artist / 技术美术</p>
+          </div>
+          <div className="simple-hero__intro">
+            <p>
+              光学工程硕士在读，关注实时渲染、风格化 Shader 与图形工具开发，
+              具有 Unity、Unreal Engine 和 OpenGL 项目实践经验。
+            </p>
+            <div className="button-row">
+              <a href="#projects" className="primary-button">查看项目</a>
+              <Link href="/resume" className="secondary-button">查看简历</Link>
+            </div>
           </div>
         </div>
       </section>
 
+      <section id="projects" className="projects-section">
+        <div className="content-width">
+          <div className="section-heading">
+            <div>
+              <p className="section-label">PROJECTS</p>
+              <h2>项目实践</h2>
+            </div>
+            <p>以下项目来自我的个人开发和团队实践，主要涉及实时渲染、Shader 与 UE5 功能实现。</p>
+          </div>
+
+          <div className="simple-project-list">
+            {projects.map((project) => (
+              <article className="simple-project-card" key={project.slug}>
+                <Link href={`/projects/${project.slug}`} className="project-placeholder" aria-label={`查看 ${project.title}`}>
+                  <span>{project.category}</span>
+                  <strong>{project.title}</strong>
+                  <small>项目图片待补充</small>
+                </Link>
+                <div className="simple-project-card__content">
+                  <div className="simple-project-card__meta">
+                    <span>{project.index}</span>
+                    <span>{project.year}</span>
+                  </div>
+                  <h3><Link href={`/projects/${project.slug}`}>{project.title}</Link></h3>
+                  <p className="simple-project-card__subtitle">{project.shortTitle}</p>
+                  <p className="simple-project-card__description">{project.description}</p>
+                  <div className="simple-tags">
+                    {project.stack.map((tag) => <span key={tag}>{tag}</span>)}
+                  </div>
+                  <Link href={`/projects/${project.slug}`} className="plain-link">查看项目详情 →</Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="simple-about">
+        <div className="content-width simple-about__grid">
+          <div>
+            <p className="section-label">ABOUT ME</p>
+            <h2>关于我</h2>
+          </div>
+          <div className="simple-about__content">
+            <p>
+              南京工业大学光学工程硕士在读，求职方向为技术美术。主要学习和实践方向包括实时渲染、
+              NPR Shader、PBR、后处理和图形工具开发。
+            </p>
+            <p>
+              目前使用过 Unity、Unreal Engine、OpenGL、C++、HLSL / GLSL、C# 和 Python，
+              希望继续积累渲染表现与工具开发方面的项目经验。
+            </p>
+            <dl className="about-facts">
+              <div><dt>教育背景</dt><dd>南京工业大学 · 光学工程硕士在读</dd></div>
+              <div><dt>技术方向</dt><dd>实时渲染、NPR、PBR、后处理、工具开发</dd></div>
+              <div><dt>求职方向</dt><dd>技术美术（TA）</dd></div>
+            </dl>
+            <Link href="/resume" className="plain-link">查看完整简历 →</Link>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
