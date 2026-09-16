@@ -14,7 +14,7 @@ export default function Home() {
     <main className="portfolio-page">
       <PortfolioHeader />
 
-      <section id="about" className="portfolio-hero">
+      <section className="portfolio-hero">
         <div className="portfolio-hero__meta" aria-hidden="true">
           <span>PORTFOLIO / 2026</span>
           <span>NANJING, CN</span>
@@ -72,8 +72,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="about-section">
-        <p className="eyebrow">ABOUT / 关于我</p>
+      <section id="about" className="about-section">
+        <p className="eyebrow">ABOUT ME / 关于我</p>
         <div className="about-section__grid">
           <h2>技术为画面服务，<br />工具为创作提速。</h2>
           <div>
@@ -84,14 +84,6 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="portfolio-footer">
-        <div>
-          <p className="eyebrow">LET&apos;S WORK TOGETHER</p>
-          <h2>Have an idea?<br /><em>Let&apos;s make it real.</em></h2>
-        </div>
-        <a href="mailto:2679664405@qq.com" className="footer-email">2679664405@qq.com ↗</a>
-        <p className="portfolio-footer__copyright">© 2026 TAO ZHENHUI · DESIGNED &amp; BUILT WITH CARE</p>
-      </footer>
     </main>
   );
 }

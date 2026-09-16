@@ -12,7 +12,7 @@ export default function PortfolioHeader({ detail = false }: { detail?: boolean }
           <Link href="/#work">← 返回项目</Link>
         ) : (
           <>
-            <a href="#about">About</a>
+            <a href="#about">About Me</a>
             <a href="#work">Work</a>
           </>
         )}
