@@ -41,22 +41,155 @@
     width: 210mm !important;
     max-width: none !important;
     min-height: 297mm !important;
-    height: 297mm !important;
     margin: 0 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     box-shadow: none !important;
   }
 
   /* 防止打印视口触发移动端布局，始终保持与桌面网页一致的双栏结构。 */
   .resume-content {
     display: grid !important;
-    grid-template-columns: 62mm 1fr !important;
+    grid-template-columns: 59mm 1fr !important;
     min-height: 297mm !important;
   }
 
   .resume-sidebar,
   .resume-main {
     min-width: 0 !important;
+  }
+
+  /* 优先压缩空白而不是正文，让全部内容真实落入一张 A4。 */
+  .resume-sidebar {
+    padding: 18mm 4.5mm 0 !important;
+  }
+
+  .resume-sidebar > * + * {
+    margin-block-start: 3.5mm !important;
+  }
+
+  .resume-header img {
+    width: 28mm !important;
+    height: 37mm !important;
+  }
+
+  .resume-header p {
+    margin-top: 1.5mm !important;
+  }
+
+  .resume-header h1 {
+    margin-top: 1mm !important;
+    font-size: 22pt !important;
+    line-height: 1 !important;
+  }
+
+  .resume-sidebar section h2 {
+    margin-top: 1mm !important;
+    font-size: 11pt !important;
+    line-height: 1.15 !important;
+  }
+
+  .resume-contact,
+  .resume-skills,
+  .resume-education {
+    margin-top: 2mm !important;
+  }
+
+  .resume-contact > * + *,
+  .resume-skills > * + *,
+  .resume-education > * + * {
+    margin-block-start: 1.3mm !important;
+  }
+
+  .resume-contact,
+  .resume-skills p,
+  .resume-education {
+    font-size: 7.5pt !important;
+    line-height: 1.35 !important;
+  }
+
+  .resume-main {
+    padding: 18mm 6mm 0 !important;
+  }
+
+  .resume-main > * + * {
+    margin-block-start: 3.5mm !important;
+  }
+
+  .resume-summary {
+    padding-bottom: 3mm !important;
+  }
+
+  .resume-summary h2 {
+    margin-top: 1.5mm !important;
+    font-size: 19pt !important;
+    line-height: 1 !important;
+  }
+
+  .resume-summary p:last-child {
+    margin-top: 2mm !important;
+    font-size: 8.5pt !important;
+    line-height: 1.45 !important;
+  }
+
+  .resume-section-title {
+    margin-bottom: 2mm !important;
+    gap: 2mm !important;
+  }
+
+  .resume-section-title h2 {
+    font-size: 13pt !important;
+    line-height: 1.1 !important;
+  }
+
+  .resume-project {
+    padding-top: 2mm !important;
+    padding-bottom: 2mm !important;
+    padding-left: 3mm !important;
+  }
+
+  .resume-project > div {
+    gap: 1mm !important;
+  }
+
+  .resume-project h3 {
+    font-size: 10.5pt !important;
+    line-height: 1.2 !important;
+  }
+
+  .resume-project > p,
+  .resume-project ul {
+    margin-top: 1.2mm !important;
+  }
+
+  .resume-project ul {
+    font-size: 7.8pt !important;
+    line-height: 1.35 !important;
+  }
+
+  .resume-project li {
+    gap: 1.5mm !important;
+  }
+
+  .resume-project li + li {
+    margin-top: 0.5mm !important;
+  }
+
+  .resume-experiences {
+    padding-left: 3mm !important;
+  }
+
+  .resume-experiences > * + * {
+    margin-block-start: 2mm !important;
+  }
+
+  .resume-experiences article > div {
+    gap: 1mm !important;
+  }
+
+  .resume-experiences article p {
+    margin-top: 1mm !important;
+    font-size: 8pt !important;
+    line-height: 1.35 !important;
   }
 
   .resume-print article,
