@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PortfolioHeader from "@/components/PortfolioHeader";
@@ -41,11 +42,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <p className="simple-detail__summary">{project.intro}</p>
         </header>
 
-        <div className="detail-placeholder">
-          <span>{project.category}</span>
-          <strong>{project.title}</strong>
-          <small>项目主图或演示视频待补充</small>
-        </div>
+        {project.cover ? (
+          <figure className="detail-hero-media">
+            <Image
+              src={project.cover.src}
+              alt={project.cover.alt}
+              width={1920}
+              height={1080}
+              sizes="(max-width: 1168px) calc(100vw - 48px), 1120px"
+              loading="eager"
+            />
+          </figure>
+        ) : (
+          <div className="detail-placeholder">
+            <span>{project.category}</span>
+            <strong>{project.title}</strong>
+            <small>项目主图或演示视频待补充</small>
+          </div>
+        )}
 
         <dl className="project-facts">
           <div><dt>项目时间</dt><dd>{project.duration}</dd></div>
@@ -60,6 +74,28 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <p>{project.description}</p>
         </section>
 
+        {project.demo ? (
+          <section className="project-demo" aria-labelledby={`${project.slug}-demo-title`}>
+            <div className="project-demo__heading">
+              <p className="section-label">PROJECT DEMO</p>
+              <h2 id={`${project.slug}-demo-title`}>{project.demo.title}</h2>
+              <p>{project.demo.caption}</p>
+            </div>
+            <div className="project-media">
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster={project.demo.poster}
+                aria-label={project.demo.title}
+              >
+                <source src={project.demo.src} type="video/mp4" />
+                当前浏览器不支持视频播放。
+              </video>
+            </div>
+          </section>
+        ) : null}
+
         <div className="simple-case-study">
           {project.sections.map((section) => (
             <section key={section.eyebrow}>
@@ -72,6 +108,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <ul>
                   {section.points.map((point) => <li key={point}>{point}</li>)}
                 </ul>
+                {section.media ? (
+                  <figure className="project-media project-media--section">
+                    <video
+                      controls
+                      playsInline
+                      preload="metadata"
+                      poster={section.media.poster}
+                      autoPlay={section.media.autoPlay}
+                      loop={section.media.loop}
+                      muted={section.media.muted}
+                      aria-label={section.media.label}
+                    >
+                      <source src={section.media.src} type="video/mp4" />
+                      当前浏览器不支持视频播放。
+                    </video>
+                    <figcaption>{section.media.caption}</figcaption>
+                  </figure>
+                ) : null}
               </div>
             </section>
           ))}

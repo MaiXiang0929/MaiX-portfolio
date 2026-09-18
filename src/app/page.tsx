@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PortfolioHeader from "@/components/PortfolioHeader";
 import { projects } from "@/data/projects";
@@ -46,10 +47,25 @@ export default function Home() {
           <div className="simple-project-list">
             {projects.map((project) => (
               <article className="simple-project-card" key={project.slug}>
-                <Link href={`/projects/${project.slug}`} className="project-placeholder" aria-label={`查看 ${project.title}`}>
-                  <span>{project.category}</span>
-                  <strong>{project.title}</strong>
-                  <small>项目图片待补充</small>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className={`project-placeholder${project.cover ? " project-cover" : ""}`}
+                  aria-label={`查看 ${project.title}`}
+                >
+                  {project.cover ? (
+                    <Image
+                      src={project.cover.src}
+                      alt={project.cover.alt}
+                      fill
+                      sizes="(max-width: 760px) 100vw, 43vw"
+                    />
+                  ) : (
+                    <>
+                      <span>{project.category}</span>
+                      <strong>{project.title}</strong>
+                      <small>项目图片待补充</small>
+                    </>
+                  )}
                 </Link>
                 <div className="simple-project-card__content">
                   <div className="simple-project-card__meta">

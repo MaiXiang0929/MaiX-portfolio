@@ -45,3 +45,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local source media. Web-ready derivatives live in public/projects.
+/Portfolio_Source/
