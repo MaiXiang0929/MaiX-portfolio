@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import ExerciseGallery from "@/components/ExerciseGallery";
 import PortfolioHeader from "@/components/PortfolioHeader";
-import { projects } from "@/data/projects";
+import { exerciseProjects, featuredProjects } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "陶振辉 | 技术美术作品集",
@@ -45,7 +46,7 @@ export default function Home() {
           </div>
 
           <div className="simple-project-list">
-            {projects.map((project) => (
+            {featuredProjects.map((project) => (
               <article className="simple-project-card" key={project.slug}>
                 <Link
                   href={`/projects/${project.slug}`}
@@ -86,6 +87,23 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="exercises-section" aria-labelledby="exercises-title">
+        <div className="content-width">
+          <div className="exercises-heading">
+            <div>
+              <p className="section-label">OTHER WORKS</p>
+              <h2 id="exercises-title">其他练习</h2>
+            </div>
+            <div className="exercises-heading__aside">
+              <p>这里收录了一些个人练习和小型项目。</p>
+              <span>{exerciseProjects.length} {exerciseProjects.length === 1 ? "Project" : "Projects"}</span>
+            </div>
+          </div>
+
+          <ExerciseGallery projects={exerciseProjects} />
+        </div>
+      </section>
+
       <section id="about" className="simple-about">
         <div className="content-width simple-about__grid">
           <div>
@@ -99,7 +117,7 @@ export default function Home() {
             </p>
             <p>
               目前使用过 Unity、Unreal Engine、OpenGL、C++、HLSL / GLSL、C# 和 Python，
-              希望继续积累渲染表现与工具开发方面的项目经验。
+              希望继续学习实时渲染和工具开发。
             </p>
             <dl className="about-facts">
               <div><dt>教育背景</dt><dd>南京工业大学 · 光学工程硕士在读</dd></div>

@@ -158,7 +158,7 @@ const projects: ResumeProject[] = [
         ],
       },
       {
-        text: "实现基于 1-Bit Dithering 的 PSX 风格化后处理，并将抖动效果接入毒圈视觉表现；使用 UE5 MCP 辅助材质与场景参数调整，提高效果验证和迭代效率。",
+        text: "实现基于 1-Bit Dithering 的 PSX 风格化后处理，并将抖动效果接入毒圈视觉表现；使用 UE5 MCP 辅助调整材质和场景参数。",
         highlights: [
           { keyword: "1-Bit Dithering" },
           { keyword: "PSX 风格化后处理" },
@@ -216,7 +216,7 @@ const experiences = [
   {
     title: "米哈游策划大赛 · 场景搭建",
     period: "2025.11",
-    description: "参与二次元风格场景搭建，完成场景视觉表现与风格化效果调整，并配合团队推进整体场景呈现。",
+    description: "参与二次元风格场景搭建和风格化效果调整，与团队一起完成场景修改和最终效果。",
   },
 ];
 

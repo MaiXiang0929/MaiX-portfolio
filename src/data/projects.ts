@@ -1,6 +1,8 @@
 export type Project = {
   slug: string;
   index: string;
+  display: "featured" | "exercise";
+  exerciseCategory?: "rendering" | "tools" | "animation";
   category: "Rendering" | "Game / UE5" | "Shader / NPR" | "Technical Animation";
   title: string;
   shortTitle: string;
@@ -42,6 +44,7 @@ export const projects: Project[] = [
   {
     slug: "maix-renderer",
     index: "01",
+    display: "featured",
     category: "Rendering",
     title: "MaiX Renderer",
     shortTitle: "OpenGL 实时渲染框架",
@@ -57,7 +60,7 @@ export const projects: Project[] = [
       {
         eyebrow: "01 / SYSTEM",
         title: "渲染框架与资源管理",
-        body: "使用 Scene Proxy、RenderView 与多 Pass 组织场景提交和渲染流程，将场景数据与 GPU 表达分离，为后续增加渲染特性保留清晰边界。",
+        body: "使用 Scene Proxy、RenderView 与多 Pass 组织场景提交和渲染流程，将场景数据与 GPU 表达分离，方便后续继续添加新的渲染功能。",
         points: ["GPU 资源生命周期管理", "场景层级与视口拾取", "Shader 热重载", "逐 Pass 性能统计"],
       },
       {
@@ -69,7 +72,7 @@ export const projects: Project[] = [
       {
         eyebrow: "03 / POST",
         title: "后处理流程",
-        body: "加入 HDR、Bloom、SSAO 与 ACES Tone Mapping，让几何、光照和材质最终进入可调试、可组合的后处理流程。",
+        body: "实现 HDR、Bloom、SSAO 与 ACES Tone Mapping，并支持分别调节各项后处理效果。",
         points: ["HDR Framebuffer", "Bloom", "SSAO", "ACES Tone Mapping"],
       },
     ],
@@ -77,6 +80,7 @@ export const projects: Project[] = [
   {
     slug: "insomnia",
     index: "02",
+    display: "featured",
     category: "Game / UE5",
     title: "Insomnia",
     shortTitle: "PSX 风格微恐解谜游戏",
@@ -104,7 +108,7 @@ export const projects: Project[] = [
       {
         eyebrow: "03 / STYLE",
         title: "PSX 风格后处理",
-        body: "实现 1-Bit Dithering 风格化后处理，并接入毒圈表现，使颗粒、抖动和区域反馈能够共同服务于游戏氛围。",
+        body: "实现 1-Bit Dithering 风格化后处理，并将抖动效果与毒圈结合，强化游戏的压抑氛围。",
         points: ["1-Bit Dithering", "低色阶输出", "风格与玩法联动", "实时参数迭代"],
       },
     ],
@@ -112,6 +116,7 @@ export const projects: Project[] = [
   {
     slug: "unity-npr",
     index: "03",
+    display: "featured",
     category: "Shader / NPR",
     title: "Unity NPR",
     shortTitle: "二次元角色渲染",
@@ -137,7 +142,7 @@ export const projects: Project[] = [
       {
         eyebrow: "01 / LIGHTING",
         title: "分层光照",
-        body: "组合 BaseMap、LightMap 与 Ramp Texture，对不同材质区域分别控制明暗边界与色阶，使角色在不同光照环境中保持风格稳定。",
+        body: "组合 BaseMap、LightMap 与 Ramp Texture，用 Ramp 控制明暗色阶，并分别调整不同材质区域。",
         points: ["LightMap 分区", "Ramp 色阶", "卡通 / 金属高光", "多光源支持"],
       },
       {
@@ -159,7 +164,7 @@ export const projects: Project[] = [
       {
         eyebrow: "03 / SILHOUETTE",
         title: "边缘光与描边",
-        body: "加入边缘光和外扩描边，针对身体、面部与金属区域设置不同响应，使角色在复杂背景下仍保持清晰轮廓。",
+        body: "加入边缘光和外扩描边，并分别调整身体、面部和金属区域的相关参数。",
         points: ["外扩描边", "Fresnel 边缘光", "材质差异化", "复杂背景可读性"],
       },
     ],
@@ -167,6 +172,8 @@ export const projects: Project[] = [
   {
     slug: "character-animation-integration",
     index: "04",
+    display: "exercise",
+    exerciseCategory: "animation",
     category: "Technical Animation",
     title: "Character Animation Integration",
     shortTitle: "角色动画集成练习",
@@ -210,6 +217,9 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+export const featuredProjects = projects.filter((project) => project.display === "featured");
+export const exerciseProjects = projects.filter((project) => project.display === "exercise");
 
 export function getProject(slug: string) {
   return projects.find((project) => project.slug === slug);
