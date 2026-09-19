@@ -2,8 +2,8 @@ export type Project = {
   slug: string;
   index: string;
   display: "featured" | "exercise";
-  exerciseCategory?: "rendering" | "tools" | "animation";
-  category: "Rendering" | "Game / UE5" | "Shader / NPR" | "Technical Animation";
+  exerciseCategory?: "rendering" | "modeling" | "tools" | "animation";
+  category: "Rendering" | "Modeling" | "Game / UE5" | "Shader / NPR" | "Technical Animation";
   title: string;
   shortTitle: string;
   year: string;
@@ -213,6 +213,100 @@ export const projects: Project[] = [
         title: "跳跃与落地处理",
         body: "通过跳跃高度和重力计算初始竖直速度，在空中持续更新重力，并结合 CharacterController 接地状态完成腾空与落地状态切换。",
         points: ["跳跃初速度计算", "逐帧重力更新", "离地检测", "落地返回待机"],
+      },
+    ],
+  },
+  {
+    slug: "blender-donut",
+    index: "05",
+    display: "exercise",
+    exerciseCategory: "modeling",
+    category: "Modeling",
+    title: "Blender Donut",
+    shortTitle: "甜甜圈建模练习",
+    year: "2026",
+    description:
+      "使用 Blender 完成甜甜圈建模，包含主体、糖霜和 Sprinkles 制作，并通过 Geometry Nodes 控制配料分布，最后完成材质、灯光和渲染。",
+    intro:
+      "这是一次 Blender 建模练习，重点完成甜甜圈主体和糖霜的制作，并使用 Geometry Nodes 生成和调整 Sprinkles。项目最后输出了静态效果图和演示视频。",
+    stack: ["Blender", "3D Modeling", "Geometry Nodes", "Material", "Lighting", "Rendering"],
+    role: "建模 / 材质 / 灯光 / 渲染",
+    duration: "2026",
+    cover: {
+      src: "/projects/blender-donut/donut-cover.png",
+      alt: "Blender 制作的多种甜甜圈最终渲染效果",
+    },
+    demo: {
+      src: "/projects/blender-donut/videos/donut.mp4",
+      poster: "/projects/blender-donut/donut-cover.png",
+      title: "甜甜圈建模与渲染演示",
+      caption: "展示甜甜圈主体、糖霜、Geometry Nodes Sprinkles 以及最终材质和灯光效果。",
+    },
+    sections: [
+      {
+        eyebrow: "01 / MODELING",
+        title: "甜甜圈与糖霜",
+        body: "完成甜甜圈主体和糖霜的基础建模，调整模型比例、形状和糖霜边缘细节。",
+        points: ["甜甜圈主体", "糖霜形体", "表面细节"],
+      },
+      {
+        eyebrow: "02 / GEOMETRY NODES",
+        title: "Sprinkles 生成",
+        body: "使用 Geometry Nodes 生成 Sprinkles，并调整配料的数量、位置和方向。",
+        points: ["实例生成", "表面分布", "参数调整"],
+      },
+      {
+        eyebrow: "03 / LOOKDEV",
+        title: "材质与渲染",
+        body: "完成甜甜圈、糖霜和 Sprinkles 的材质、灯光与最终渲染。",
+        points: ["材质调整", "灯光设置", "静态图与视频输出"],
+      },
+    ],
+  },
+  {
+    slug: "unity-glass",
+    index: "06",
+    display: "exercise",
+    exerciseCategory: "rendering",
+    category: "Rendering",
+    title: "Unity Glass Shader",
+    shortTitle: "URP 玻璃折射与反射材质",
+    year: "2026",
+    description:
+      "基于 Unity URP 实现玻璃材质，完成屏幕空间折射、Fresnel 反射、RGB 色散与光吸收效果。",
+    intro:
+      "Unity URP Shader 练习，围绕透明材质的折射、反射和透射表现，完成实时玻璃渲染。",
+    stack: ["Unity 2022.3", "URP", "HLSL", "ShaderLab", "Fresnel", "Cubemap"],
+    role: "Shader / 材质 / 渲染",
+    duration: "2026",
+    cover: {
+      src: "/projects/unity-glass/cover.png",
+      alt: "Unity URP 玻璃材质渲染效果",
+    },
+    demo: {
+      src: "/projects/unity-glass/videos/glass.mp4",
+      poster: "/projects/unity-glass/cover.png",
+      title: "Unity 玻璃材质渲染演示",
+      caption: "展示玻璃材质的折射、环境反射、色散与透射效果。",
+    },
+    sections: [
+      {
+        eyebrow: "01 / REFRACTION",
+        title: "屏幕空间折射",
+        body: "通过 Camera Opaque Texture 获取背景，并根据法线与折射率计算屏幕空间偏移。",
+        points: ["折射率控制", "法线扰动", "屏幕空间采样"],
+      },
+      {
+        eyebrow: "02 / REFLECTION",
+        title: "环境反射",
+        body: "使用 Cubemap 和 Fresnel 控制视角相关反射，增强玻璃边缘表现。",
+        points: ["Cubemap 反射", "Fresnel", "粗糙度控制"],
+      },
+      {
+        eyebrow: "03 / TRANSMISSION",
+        title: "色散与光吸收",
+        body: "对 RGB 通道进行差异化采样，并使用 Beer-Lambert 模型控制透射衰减。",
+        points: ["RGB 色散", "厚度控制", "有色透射"],
       },
     ],
   },

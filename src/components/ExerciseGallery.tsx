@@ -9,12 +9,13 @@ type ExerciseCategory = NonNullable<Project["exerciseCategory"]>;
 
 const categories: Array<{ value: ExerciseCategory; label: string }> = [
   { value: "rendering", label: "渲染" },
+  { value: "modeling", label: "建模" },
   { value: "tools", label: "工具" },
   { value: "animation", label: "动画" },
 ];
 
 export default function ExerciseGallery({ projects }: { projects: Project[] }) {
-  const [activeCategory, setActiveCategory] = useState<ExerciseCategory>("animation");
+  const [activeCategory, setActiveCategory] = useState<ExerciseCategory>("rendering");
   const visibleProjects = projects.filter(
     (project) => project.exerciseCategory === activeCategory,
   );
